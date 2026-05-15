@@ -6,24 +6,32 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: #fdf5e6; } /* لون رملي فاتح */
-        .desert-grad { background: linear-gradient(135deg, #d97706 0%, #92400e 100%); } /* تدرج غروب الصحراء */
+        body { font-family: 'Tajawal', sans-serif; background: #fdf5e6; }
+        .desert-grad { background: linear-gradient(135deg, #d97706 0%, #92400e 100%); }
         .sand-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .animate-fade { animation: fadeIn 0.4s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
     <script>
         tailwind.config = { darkMode: 'class' };
         const fullData = {
-            'الثقافة والفنون': '✨ تراثنا الأصيل:\n• البارود: عرض القوة والفروسية.\n• القرقابو: إيقاعات العمق الإفريقي.\n• التاكوبة: رقصة السيف النبيلة.\n• العود والطبل: ألحان الأنس في ليالي آن غار.',
-            'المأكولات': '🥘 من مائدة الصحراء:\n• الطعام (الكسكس): سيد المائدة.\n• الخبز الرقيق والكسرة: عبق الأفران التقليدية.\n• حساء الشعير: دواء وغذاء.\n• الكعبوش: طاقة التمر الذهبية.',
-            'أخبار اليوم': '🗞️ تغطية شاملة لأهم المستجدات المحلية لبلدية آن غار.',
-            'أخبار الشعب': '🗣️ منبر المواطن وصوت المجتمع في أحياء ومد اشر المنطقة.',
-            'حدث اليوم': '🔥 الحدث الأبرز الذي يصنع الفارق في آن غار الآن.'
+            'الحراطين': 'هم الأحرار السود، سكان الواحات في الصحراء الكبرى. ينحدرون من تراث أفريقيا جنوب الصحراء، عُرفوا بأنهم أهل الحراثة والزراعة. في واحات درعة والجنوب الجزائري، يُعتبرون القوة الإنتاجية الأصيلة المرتبطة بالأرض.',
+            'الشرفاء': 'فئة مرموقة لنسبها الشريف، لعبت أدواراً تاريخية في الإصلاح والقيادة الاجتماعية والدينية في المنطقة، وهم رمز للوحدة والارتباط القوي.',
+            'الزوا': 'ينحدرون من أولاد سيدي الشيخ (نسب بوبكري) نسبة للخليفة أبي بكر الصديق. اشتهروا بالزوايا والكرم ومقاومة الاستعمار الفرنسي، ولهم ذكر في إلياذة مفدي زكريا.',
+            'المرابطون': 'حركة إصلاحية قوية قادها يوسف بن تاشفين، وحدت المغرب العربي ونشرت الإسلام والعدل والعلم في ربوع الصحراء الكبرى.',
+            'التوارق': 'أسياد الصحراء وأصحاب اللثام الأزرق. يشتهرون بالشجاعة والترحال ولهم لغة (التمازيغت) وتراث عريق، وهم رمز الصمود في الجنوب الكبير.',
+            'الثقافة والفنون': 'تراث آن غار الأصيل:\n• البارود: عرض الفروسية والقوة.\n• القرقابو: إيقاعات العمق الصحراوي.\n• التاكوبة: رقصات السيوف التقليدية.\n• العود والطبل: ألحان الأفراح والمناسبات.',
+            'المأكولات': 'من مطبخ آن غار:\n• الطعام (الكسكس): الوجبة الرئيسية.\n• الخبز الرقيق والكسرة: عبق التقاليد.\n• حساء الشعير: الغذاء الصحي الأصيل.\n• الكعبوش: حلوى التمر والمكسرات.',
+            'أخبار اليوم': '🗞️ متابعة لأهم الأخبار التنموية والاجتماعية في بلدية آن غار لليوم.',
+            'أخبار الشعب': '🗣️ منبر ينقل انشغالات المواطنين وقصص النجاح في مجتمعنا.',
+            'حدث اليوم': '🔥 تسليط الضوء على أبرز نشاط أو حدث تشهده المنطقة حالياً.'
         };
         function openPage(name) {
             document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
             document.getElementById('detailsView').classList.remove('hidden');
             document.getElementById('title').innerText = name;
-            document.getElementById('text').innerText = fullData[name] || 'التفاصيل الكاملة قريباً...';
+            document.getElementById('text').innerText = fullData[name] || 'التفاصيل قريباً...';
+            window.scrollTo(0,0);
         }
         function showMenu(id) {
             document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
@@ -34,48 +42,47 @@
 <body class="dark:bg-gray-900 transition-all text-right text-xs">
     <nav class="bg-amber-700 text-white shadow-lg p-4 flex justify-between items-center sticky top-0 z-50">
         <div class="flex gap-2">
-            <button onclick="showMenu('searchMenu')" class="bg-amber-600/50 p-2 rounded-xl border border-amber-400">🔍 استكشف</button>
-            <button onclick="showMenu('newsMenu')" class="bg-blue-600 text-white px-4 py-1 rounded-xl font-bold shadow-md">📢 الأخبار</button>
+            <button onclick="showMenu('searchMenu')" class="bg-amber-600/50 px-3 py-1 rounded-xl border border-amber-400">🔍 استكشف</button>
+            <button onclick="showMenu('newsMenu')" class="bg-blue-600 px-3 py-1 rounded-xl font-bold shadow-md">📢 الأخبار</button>
         </div>
-        <span class="font-black text-lg tracking-tight">آن غار 2026</span>
+        <span class="font-black text-lg">آن غار 2026</span>
     </nav>
 
     <main class="max-w-md mx-auto p-5">
-        <div id="mainView" class="view space-y-6 animate-fade-in">
-            <header class="text-center space-y-2">
+        <div id="mainView" class="view space-y-6 animate-fade">
+            <header class="text-center">
                 <h2 class="text-2xl font-black text-amber-900 dark:text-amber-200">موسوعة الرمال الذهبية</h2>
-                <p class="text-amber-700 dark:text-amber-400 font-bold italic underline">بوابة تاريخ وأصالة منطقة آن غار</p>
+                <p class="text-amber-700 dark:text-amber-400 font-bold italic">تاريخ وأصالة سكان آن غار</p>
             </header>
-            
-            <div class="grid grid-cols-2 gap-3">
-                <button onclick="openPage('الحراطين')" class="sand-card p-5 rounded-2xl shadow-xl border-b-4 border-amber-600 font-black text-amber-900 active:scale-95 transition">👤 الحراطين</button>
-                <button onclick="openPage('الشرفاء')" class="sand-card p-5 rounded-2xl shadow-xl border-b-4 border-amber-600 font-black text-amber-900 active:scale-95 transition">🛡️ الشرفاء</button>
-                <button onclick="openPage('الزوا')" class="sand-card p-5 rounded-2xl shadow-xl border-b-4 border-blue-600 font-black text-blue-900 active:scale-95 transition">🕌 الزوا</button>
-                <button onclick="openPage('المرابطون')" class="sand-card p-5 rounded-2xl shadow-xl border-b-4 border-amber-600 font-black text-amber-900 active:scale-95 transition">⚔️ المرابطون</button>
-                <button onclick="openPage('التوارق')" class="col-span-2 desert-grad text-white p-5 rounded-2xl shadow-2xl font-black text-lg active:scale-95 transition">🏜️ أسياد الصحراء (التوارق)</button>
+            <div class="grid grid-cols-2 gap-3 font-bold text-amber-950">
+                <button onclick="openPage('الحراطين')" class="sand-card p-5 rounded-2xl shadow-lg border-b-4 border-amber-600">الحراطين</button>
+                <button onclick="openPage('الشرفاء')" class="sand-card p-5 rounded-2xl shadow-lg border-b-4 border-amber-600">الشرفاء</button>
+                <button onclick="openPage('الزوا')" class="sand-card p-5 rounded-2xl shadow-lg border-b-4 border-blue-600 text-blue-900">الزوا</button>
+                <button onclick="openPage('المرابطون')" class="sand-card p-5 rounded-2xl shadow-lg border-b-4 border-amber-600">المرابطون</button>
+                <button onclick="openPage('التوارق')" class="col-span-2 desert-grad text-white p-5 rounded-2xl shadow-xl text-lg">🏜️ أسياد الصحراء (التوارق)</button>
             </div>
-            <img src="1000007884.jpg" class="w-full rounded-[2rem] shadow-2xl border-4 border-amber-200 dark:border-amber-900">
+            <img src="1000007884.jpg" class="w-full rounded-[2rem] shadow-2xl border-4 border-amber-200">
         </div>
 
-        <div id="searchMenu" class="view hidden space-y-4">
-            <button onclick="showMenu('mainView')" class="text-amber-800 font-bold bg-amber-200 px-4 py-1 rounded-full">⬅️ رجوع</button>
-            <button onclick="openPage('الثقافة والفنون')" class="w-full bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border-r-8 border-orange-500 font-black text-lg">🎨 الثقافة والبارود</button>
-            <button onclick="openPage('المأكولات')" class="w-full bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border-r-8 border-yellow-500 font-black text-lg">🥘 مأكولاتنا (الكسكس..)</button>
+        <div id="searchMenu" class="view hidden space-y-4 animate-fade">
+            <button onclick="showMenu('mainView')" class="text-amber-800 font-bold bg-amber-200 px-4 py-1 rounded-full mb-2">⬅️ رجوع</button>
+            <button onclick="openPage('الثقافة والفنون')" class="w-full bg-white p-6 rounded-3xl shadow-lg border-r-8 border-orange-500 font-black text-lg">🎨 الثقافة والبارود</button>
+            <button onclick="openPage('المأكولات')" class="w-full bg-white p-6 rounded-3xl shadow-lg border-r-8 border-yellow-500 font-black text-lg">🥘 المأكولات التقليدية</button>
         </div>
 
-        <div id="newsMenu" class="view hidden space-y-4">
-            <button onclick="showMenu('mainView')" class="text-blue-800 font-bold bg-blue-100 px-4 py-1 rounded-full">⬅️ رجوع</button>
-            <button onclick="openPage('أخبار اليوم')" class="w-full bg-white p-5 rounded-2xl shadow-md border-l-8 border-blue-600 font-bold">🗞️ أخبار اليوم</button>
-            <button onclick="openPage('أخبار الشعب')" class="w-full bg-white p-5 rounded-2xl shadow-md border-l-8 border-blue-400 font-bold">📢 أخبار الشعب</button>
-            <button onclick="openPage('حدث اليوم')" class="w-full bg-white p-5 rounded-2xl shadow-md border-l-8 border-red-600 font-bold">🔥 حدث اليوم</button>
+        <div id="newsMenu" class="view hidden space-y-4 animate-fade">
+            <button onclick="showMenu('mainView')" class="text-blue-800 font-bold bg-blue-100 px-4 py-1 rounded-full mb-2">⬅️ رجوع</button>
+            <button onclick="openPage('أخبار اليوم')" class="w-full bg-white p-5 rounded-2xl shadow border-l-8 border-blue-600 font-bold">🗞️ أخبار اليوم</button>
+            <button onclick="openPage('أخبار الشعب')" class="w-full bg-white p-5 rounded-2xl shadow border-l-8 border-blue-400 font-bold">📢 أخبار الشعب</button>
+            <button onclick="openPage('حدث اليوم')" class="w-full bg-white p-5 rounded-2xl shadow border-l-8 border-red-600 font-bold">🔥 حدث اليوم</button>
         </div>
 
-        <div id="detailsView" class="view hidden bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] shadow-2xl min-h-[80vh] relative border-t-8 border-amber-600">
-            <button onclick="showMenu('mainView')" class="text-4xl text-amber-600 mb-6 active:scale-75 transition">🔙</button>
-            <h2 id="title" class="text-3xl font-black text-amber-900 dark:text-amber-200 mb-6 underline decoration-amber-500 decoration-4"></h2>
+        <div id="detailsView" class="view hidden bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] shadow-2xl min-h-[80vh] animate-fade border-t-8 border-amber-600">
+            <button onclick="showMenu('mainView')" class="text-4xl text-amber-600 mb-6">🔙</button>
+            <h2 id="title" class="text-2xl font-black text-amber-900 dark:text-amber-200 mb-6 underline decoration-amber-500"></h2>
             <p id="text" class="text-gray-800 dark:text-gray-200 leading-relaxed text-base text-justify whitespace-pre-line"></p>
         </div>
     </main>
-    <footer class="text-center p-8 text-amber-800/50 text-[10px] font-bold">صُنع بحب في آن غار | إعداد إبراهيم 2026</footer>
+    <footer class="text-center p-8 text-amber-800/50 text-[10px] font-bold">موسوعة آن غار الرقمية | إعداد إبراهيم 2026</footer>
 </body>
 </html>
